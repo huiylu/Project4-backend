@@ -1,6 +1,8 @@
 import requests
 import json
 from flask import Flask
+from flask_cors import CORS
+
 app= Flask(__name__)
 cors= CORS(app)
 poe_api='http://api.pathofexile.com/public-stash-tabs'
