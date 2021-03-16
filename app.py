@@ -69,4 +69,4 @@ def convert_to_json(dataset):
             "name": item,
             "number": dataset[item] 
         })
-    return combined
+    return json.dumps(combined)
