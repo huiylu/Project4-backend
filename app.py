@@ -37,20 +37,20 @@ def compiled_data():
     uniques=[]
     # fetch stash info from poe api
 
-    #i=0
+    i=0
     next_id='0'
-    #while i <3:
-    print(next_id)
-    r = requests.get('http://api.pathofexile.com/public-stash-tabs', headers=headers, params={'id': next_id})
-     print(r)
-    stash_data= r.json()
-    stashes = stash_data['stashes']
-    next_id = stash_data['next_change_id']
-    for user_stash in stashes:
-        for item in user_stash['items']:
-            if item['name'] and item['frameType']==3:                
-                uniques.append(item['name'])
-        #i+=1
+    while i <3:
+        print(next_id)
+        r = requests.get('http://api.pathofexile.com/public-stash-tabs', headers=headers, params={'id': next_id})
+        print(r)
+        stash_data= r.json()
+        stashes = stash_data['stashes']
+        next_id = stash_data['next_change_id']
+        for user_stash in stashes:
+            for item in user_stash['items']:
+                if item['name'] and item['frameType']==3:                
+                    uniques.append(item['name'])
+        i+=1
     for name in uniques:
         unique_data[name]+=1
         
