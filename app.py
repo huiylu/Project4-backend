@@ -2,6 +2,7 @@ import requests
 import json
 from flask import Flask
 app= Flask(__name__)
+cors= CORS(app)
 poe_api='http://api.pathofexile.com/public-stash-tabs'
 poe_items= 'https://www.pathofexile.com/api/trade/data/items'
 
