@@ -39,7 +39,7 @@ def compiled_data():
 
     i=0
     next_id='0'
-    while i <10:
+    while i <3:
         print(next_id)
         r = requests.get('http://api.pathofexile.com/public-stash-tabs', headers=headers, params={'id': next_id})
         print(r)
