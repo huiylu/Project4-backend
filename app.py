@@ -34,38 +34,35 @@ test()
 
 
 
-@app.route("/")
-def compiled_data():
+@app.route("/<next_id>")
+def compiled_data(next_id):
     # Create dictionary for compiled uniques list
     uniques=[]
     # fetch stash info from poe api
 
-    i=0
-    next_id='0'
-    while i <3:
-        print(next_id)
-        r = requests.get('http://api.pathofexile.com/public-stash-tabs', headers=headers, params={'id': next_id})
-        print(r)
-        stash_data= r.json()
-        stashes = stash_data['stashes']
-        next_id = stash_data['next_change_id']
-        for user_stash in stashes:
-            for item in user_stash['items']:
-                if item['name'] and item['frameType']==3:                
-                    uniques.append(item['name'])
-        i+=1
+    print(next_id)
+    r = requests.get('http://api.pathofexile.com/public-stash-tabs', headers=headers, params={'id': next_id})
+    print(r)
+    stash_data= r.json()
+    stashes = stash_data['stashes']
+    next_id = stash_data['next_change_id']
+    for user_stash in stashes:
+        for item in user_stash['items']:
+            if item['name'] and item['frameType']==3:                
+                uniques.append(item['name'])
+    
     for name in uniques:
         unique_data[name]+=1
         
     
-    return convert_to_json(unique_data)
+    return convert_to_json(unique_data, next_id)
 
 if __name__== "__main__":
     app.run()
 
-def convert_to_json(dataset):
+def convert_to_json(dataset, next_id):
     name=dataset.keys()
-    combined={'items': []}
+    combined={'next_id': next_id, 'items': []}
     #return name
     for item in name:
         combined['items'].append({
